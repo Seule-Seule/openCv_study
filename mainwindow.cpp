@@ -4,6 +4,9 @@
 #include <QDebug>
 #include <opencv2/opencv.hpp>
 #include <QVector>
+
+#include "FqImageMat.hpp"
+
 using namespace cv;
 
 QImage cvMatToQImage( const cv::Mat &inMat )
@@ -320,22 +323,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // IMREAD_UNCHANGED            = -1, //!< If set, return the loaded image as is (with alpha channel, otherwise it gets cropped). Ignore EXIF orientation.
-    // IMREAD_GRAYSCALE            = 0,  //!< If set, always convert image to the single channel grayscale image (codec internal conversion).
-    // IMREAD_COLOR
-    Mat str = imread("D:/Data/Code_Workspace/imagesTestEx/test2.jpg", IMREAD_COLOR);
-    if (str.empty()){
-        qDebug() << "str is empty!" ;
+
+    FqImageMat imageMat(cv::String("D:/Data/Code_Workspace/imagesTestEx/test2.jpg"), IMREAD_UNCHANGED);
+
+    if (imageMat.empty()){
+        qDebug() << "imageMat is empty!" ;
         return ;
     }
 
-    // namedWindow("test images", WINDOW_NORMAL);
-    //imshow("testWin", str);
-    //waitKey(0);
 
-    //Mat -> QImage
-//    QImage strQImage = cvMatToQImage(str);
-//    ui->label->setPixmap(QPixmap::fromImage(strQImage));
+    FqImageMat::show("test1", imageMat.getImage());
+    FqImageMat::show("test2", imageMat.getMat());
+    FqImageMat::show("test3", imageMat);
+
+    ui->label->setPixmap(QPixmap::fromImage(imageMat.getImage()));
 
     // cvtColor
 //    Mat outStr ;
@@ -348,7 +349,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    imwrite("D:/Data/Code_Workspace/imagesTestEx/QtHLS.png", outStr);
 
 
-    setLabelPixmap(ui->label, str, this->width()/2, this->height());
+    //setLabelPixmap(ui->label, str, this->width()/2, this->height());
 
     // mask  for Mat.ptr()
 //    Mat maskOutMat = Mat::zeros(str.size(), str.type());
@@ -403,7 +404,7 @@ MainWindow::MainWindow(QWidget *parent)
  //   testGraphicsText(str);
 
     // openCv  Í¼ÏñÄ£ºý
-    testBlur(str);
+    //testBlur(str);
 
 }
 
