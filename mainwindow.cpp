@@ -233,6 +233,42 @@ void  testBlur(Mat& _inMat)
     imshow("高斯双边滤波", medianBlurMat);
 
 }
+
+void testDilateErode(Mat& _inMat)
+{
+    Mat out;
+    //获取自定义核
+    Mat element = getStructuringElement(MORPH_RECT, Size(9, 9));
+    //膨胀  减小缝隙 亮点填充暗点
+    dilate(_inMat, out, element);
+    FqImageMat::show("膨胀",out);
+
+    // 腐蚀 减小毛刺 暗点填充亮点
+    erode(_inMat, out, element);
+    FqImageMat::show("腐蚀",out);
+
+    //高级形态学处理，调用这个函数就可以了，具体要选择哪种操作，就修改第三个参数就可以了
+    // 开运算 先腐蚀，在膨胀 去除毛刺
+    morphologyEx(_inMat, out, MORPH_OPEN, element);
+    FqImageMat::show("开运算",out);
+
+    // 闭运算 先膨胀，在腐蚀 去除缝隙
+    morphologyEx(_inMat, out, MORPH_CLOSE, element);
+    FqImageMat::show("闭运算",out);
+
+    // 梯度运算 膨胀的图像-腐蚀的图像 边缘信息
+    morphologyEx(_inMat, out, MORPH_GRADIENT, element);
+    FqImageMat::show("梯度运算",out);
+
+    // 高帽 原始图像-开运算结果 要消除的毛刺信息
+    morphologyEx(_inMat, out, MORPH_TOPHAT, element);
+    FqImageMat::show("高帽",out);
+
+    // 黑帽 闭运算结果-原始图像 要消除的缝隙信息
+    morphologyEx(_inMat, out, MORPH_BLACKHAT, element);
+    FqImageMat::show("黑帽",out);
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -315,6 +351,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //    // openCv  图像模糊
     //    testBlur(imageMat.mat);
+
+    // 图像基本形态学操作 膨胀 腐蚀 开运算 闭运算 梯度计算 高帽和黑帽
+    testDilateErode(imageMat.mat);
 
 }
 
