@@ -10,14 +10,17 @@ CONFIG += c++11
 
 SOURCES += \
     FqImageMat.cpp \
+    FqImageWidget.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     FqImageMat.hpp \
+    FqImageWidget.hpp \
     mainwindow.hpp
 
 FORMS += \
+    FqImageWidget.ui \
     mainwindow.ui
 
 # Default rules for deployment.

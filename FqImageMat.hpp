@@ -1,4 +1,4 @@
-#ifndef FQIMAGEMAT_HPP
+﻿#ifndef FQIMAGEMAT_HPP
 #define FQIMAGEMAT_HPP
 
 #include <opencv2/opencv.hpp>

@@ -1,4 +1,4 @@
-#include "mainwindow.hpp"
+﻿#include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
 #include <QDebug>
@@ -153,30 +153,35 @@ void testGraphicsText(Mat& _bgImage)
 {
 
     // 绘制线
+
     Point lp1 = Point(10,10);
     Point lp2 = Point(_bgImage.cols - 10, _bgImage.rows - 10);
     Scalar lcolor = Scalar(0,0,255);
     line(_bgImage, lp1, lp2, lcolor, 2,LINE_AA, 0);
 
     // 绘制矩形
+
     Point rectanglep1 = Point(100,100);
     Point rectanglep2 = Point(_bgImage.cols - 100, _bgImage.rows - 100);
     Scalar rectangleColor = Scalar(255,0,0);
     rectangle(_bgImage, rectanglep1, rectanglep2, rectangleColor, 2, LINE_AA, 0);
 
     // 绘制椭圆
+
     Point ellipseConter = Point(_bgImage.cols/2, _bgImage.rows/2);
     Scalar ellipseColor = Scalar(0,255,0);
     Size ellipseSize = Size((_bgImage.cols - 200)/2, (_bgImage.rows - 200)/4);
     ellipse(_bgImage, ellipseConter, ellipseSize, 90, 0, 360, ellipseColor, 2, LINE_AA, 0);
 
     // 绘制圆
+
     Point circleConter = Point(_bgImage.cols/2, _bgImage.rows/2);
     Scalar circleColor = Scalar(0,255,255);
     int  circleRadius = (_bgImage.cols - 200)/2;
     circle(_bgImage, circleConter, circleRadius, circleColor, 2, LINE_AA, 0);
 
     // 绘制多边形填充
+
     Point root_points[1][6];
     root_points[0][0] = Point(100 + _bgImage.cols/2, _bgImage.rows/2);
     root_points[0][1] = Point(100 + _bgImage.cols/2 + 100, _bgImage.rows/2 - 100);
@@ -191,6 +196,7 @@ void testGraphicsText(Mat& _bgImage)
     fillPoly(_bgImage, ppt, npt, 1, Scalar(255, 255, 255), LINE_AA, 0);
 
     // 绘制随机直线
+
     RNG rng(123456);
     Mat rngLineMat = Mat::ones(_bgImage.size(), _bgImage.type());
     for (int index = 0; index < 1000; index ++){
@@ -201,6 +207,7 @@ void testGraphicsText(Mat& _bgImage)
     }
 
     // 绘制文字
+
     std::string textString("Hello OpenCv");
     Point textPoint = Point( _bgImage.cols/2, _bgImage.rows/2 - 200);
     Scalar putTextColor = Scalar(255,0 ,255);
@@ -212,22 +219,27 @@ void testGraphicsText(Mat& _bgImage)
 
 void  testBlur(Mat& _inMat)
 {
+
     // 均值模糊
+
     Mat blurMat;
     blur(_inMat, blurMat, Size(11, 11), Point(-1, -1) );
     imshow("均值模糊", blurMat);
 
     // 高斯模糊
+
     Mat gaussianBlurMat;
     GaussianBlur(_inMat, gaussianBlurMat, Size(11, 11), 11, 11);
     imshow("高斯模糊", blurMat);
 
     // 中值模糊  多用于消除椒盐噪声
+
     Mat medianBlurMat;
     medianBlur(_inMat, medianBlurMat, 11);
     imshow("中值模糊", medianBlurMat);
 
     // 高斯双边滤波  弥补高斯算法 边缘差异大时产生的误差 可以较好的保留图像轮廓
+
     Mat bilateralFilterMat;
     bilateralFilter(_inMat, bilateralFilterMat, 11, 100, 3);
     imshow("高斯双边滤波", medianBlurMat);
@@ -283,17 +295,17 @@ MainWindow::MainWindow(QWidget *parent)
         return ;
     }
 
-    FqImageMat::setLabelPixmap(ui->label, imageMat, this->width()/2, this->height());
+    FqImageMat::setLabelPixmap(ui->leftLabel->label, imageMat, this->width()/2, this->height());
 
     //     //cvtColor
     //        Mat outStr ;
     //        cvtColor(imageMat.mat, outStr, CV_RGB2HLS_FULL);
-    //        FqImageMat::setLabelPixmap(ui->label2, outStr, this->width()/2, this->height());
+    //        FqImageMat::setLabelPixmap(ui->rightLabel->label, outStr, this->width()/2, this->height());
 
     //     //mask  for Mat.ptr()
     //        Mat maskOutMat = Mat::zeros(imageMat.mat.size(), imageMat.mat.type());
     //        testMask(0, imageMat.mat, maskOutMat);
-    //        FqImageMat::setLabelPixmap(ui->label2, maskOutMat,  this->width()/2, this->height());
+    //        FqImageMat::setLabelPixmap(ui->rightLabel->label, maskOutMat,  this->width()/2, this->height());
 
     //     //get Pixel with three or one channels
     //        Mat pixelMat = Mat::zeros(imageMat.mat.size(), imageMat.mat.type());
@@ -303,7 +315,7 @@ MainWindow::MainWindow(QWidget *parent)
     //        cvtColor(imageMat.mat, pixelMat, CV_RGB2GRAY, 1);
     //        testPixel(imageMat.mat, pixelMat2);  // three channels
     //        //testPixel(pixelMat, pixelMat2);  // one channels
-    //        FqImageMat::setLabelPixmap(ui->label2, pixelMat2,  this->width()/2, this->height());
+    //        FqImageMat::setLabelPixmap(ui->rightLabel->label, pixelMat2,  this->width()/2, this->height());
 
     //     //图像混合  G(x)=(1-a)F(x)+aQ(x)
     //        FqImageMat str1 = FqImageMat("D:/Data/Code_Workspace/imagesTestEx/CMD.jpg", IMREAD_UNCHANGED);
@@ -317,8 +329,8 @@ MainWindow::MainWindow(QWidget *parent)
     //            return ;
     //        }
     //        Mat outStr;
-    //        FqImageMat::setLabelPixmap(ui->label, str1,  this->width()/2, this->height());
-    //        FqImageMat::setLabelPixmap(ui->label2, str2,  this->width()/2, this->height());
+    //        FqImageMat::setLabelPixmap(ui->leftLabel->label, str1,  this->width()/2, this->height());
+    //        FqImageMat::setLabelPixmap(ui->rightLabel->label, str2,  this->width()/2, this->height());
     //        double alpha = 0.5;
     //        // 要保证需要混合的图像尺寸和类型一致
     //        if (str1.mat.size() == str2.mat.size() && str1.mat.type() == str2.mat.type()){
@@ -341,7 +353,7 @@ MainWindow::MainWindow(QWidget *parent)
     //        //Mat oneChannelMat;
     //        //cvtColor(imageMat.mat, oneChannelMat, CV_RGB2GRAY);
     //        //testBrightnessContrast(oneChannelMat, testMat);
-    //        FqImageMat::setLabelPixmap(ui->label2, testMat,  this->width()/2, this->height());
+    //        FqImageMat::setLabelPixmap(ui->rightLabel->label, testMat,  this->width()/2, this->height());
 
     //    //分离颜色通道，多通道融合
     //    testChannels(imageMat.mat);

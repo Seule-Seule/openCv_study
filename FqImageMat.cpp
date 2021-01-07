@@ -1,4 +1,4 @@
-#include "FqImageMat.hpp"
+﻿#include "FqImageMat.hpp"
 
 #include <QImage>
 #include <QWidget>
@@ -105,7 +105,6 @@ void FqImageMat::setLabelPixmap( QLabel * _qLanel, FqImageMat &inFqImageMat, int
     QPixmap pixmap = QPixmap::fromImage(inFqImageMat.image);
     pixmap= pixmap.scaled(_pWidth, _pHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _qLanel->setPixmap(pixmap);
-
 }
 
 void FqImageMat::show(const cv::String& winname, const cv::Mat &inMat)
