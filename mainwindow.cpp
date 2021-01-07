@@ -112,14 +112,14 @@ void testBrightnessContrast(Mat& _inMat, Mat & _outMat)
 
 void testChannels(Mat& _inMat)
 {
-    //°ÑÒ»¸öÈıÍ¨µÀÍ¼Ïñ£¬×ª»»³É3¸öµ¥Í¨µÀÍ¼Ïñ
+    //æŠŠä¸€ä¸ªä¸‰é€šé“å›¾åƒï¼Œè½¬æ¢æˆ3ä¸ªå•é€šé“å›¾åƒ
     Mat BImg, GImg, RImg;
     std::vector<Mat> channels;
     Mat aChannels[3];
 
-    //ÀûÓÃÊı×é·ÖÀë
+    //åˆ©ç”¨æ•°ç»„åˆ†ç¦»
     split(_inMat, aChannels);
-    //ÀûÓÃvector¶ÔÏó·ÖÀë
+    //åˆ©ç”¨vectorå¯¹è±¡åˆ†ç¦»
     split(_inMat, channels);
 
     //    BImg = aChannels[0];
@@ -130,53 +130,53 @@ void testChannels(Mat& _inMat)
     GImg = channels[1];
     RImg = channels[2];
 
-    imshow("À¶É«·ÖÁ¿", BImg);
-    imshow("ÂÌÉ«·ÖÁ¿", GImg);
-    imshow("ºìÉ«·ÖÁ¿", RImg);
+    imshow("è“è‰²åˆ†é‡", BImg);
+    imshow("ç»¿è‰²åˆ†é‡", GImg);
+    imshow("çº¢è‰²åˆ†é‡", RImg);
 
     Mat BIamgT = Mat::zeros(BImg.size(), BImg.type());
     Mat GIamgT = Mat::zeros(BImg.size(), BImg.type());
     Mat RIamgT = Mat::zeros(BImg.size(), BImg.type());
 
-    //   µ±Ã¿¸öÍ¨µÀ´æÔÚÊ±£¬²Å»áÏÔÊ¾Îª²ÊÉ« Í¨µÀ·ÖÀëºóµÄµ¥Í¨µÀÖ»ÏÔÊ¾»ÒÉ«
+    //   å½“æ¯ä¸ªé€šé“å­˜åœ¨æ—¶ï¼Œæ‰ä¼šæ˜¾ç¤ºä¸ºå½©è‰² é€šé“åˆ†ç¦»åçš„å•é€šé“åªæ˜¾ç¤ºç°è‰²
     //    std::vector<Mat> aChannelss(3);
     //    aChannelss[0] = BImg;
     //    aChannelss[1] = GIamgT;
     //    aChannelss[2] = RIamgT;
-    //merge¹¦ÄÜ£º½«Ò»Ğ©Êı×éºÏ²¢³ÉÒ»¸ö¶àÍ¨µÀÊı×é
+    //mergeåŠŸèƒ½ï¼šå°†ä¸€äº›æ•°ç»„åˆå¹¶æˆä¸€ä¸ªå¤šé€šé“æ•°ç»„
     Mat dst;
     merge(channels, dst);
-    imshow("ÖØĞÂ×éºÏÍ¨µÀ", dst);
+    imshow("é‡æ–°ç»„åˆé€šé“", dst);
 }
 
 void testGraphicsText(Mat& _bgImage)
 {
 
-    // »æÖÆÏß
+    // ç»˜åˆ¶çº¿
     Point lp1 = Point(10,10);
     Point lp2 = Point(_bgImage.cols - 10, _bgImage.rows - 10);
     Scalar lcolor = Scalar(0,0,255);
     line(_bgImage, lp1, lp2, lcolor, 2,LINE_AA, 0);
 
-    // »æÖÆ¾ØĞÎ
+    // ç»˜åˆ¶çŸ©å½¢
     Point rectanglep1 = Point(100,100);
     Point rectanglep2 = Point(_bgImage.cols - 100, _bgImage.rows - 100);
     Scalar rectangleColor = Scalar(255,0,0);
     rectangle(_bgImage, rectanglep1, rectanglep2, rectangleColor, 2, LINE_AA, 0);
 
-    // »æÖÆÍÖÔ²
+    // ç»˜åˆ¶æ¤­åœ†
     Point ellipseConter = Point(_bgImage.cols/2, _bgImage.rows/2);
     Scalar ellipseColor = Scalar(0,255,0);
     Size ellipseSize = Size((_bgImage.cols - 200)/2, (_bgImage.rows - 200)/4);
     ellipse(_bgImage, ellipseConter, ellipseSize, 90, 0, 360, ellipseColor, 2, LINE_AA, 0);
 
-    // »æÖÆÔ²
+    // ç»˜åˆ¶åœ†
     Point circleConter = Point(_bgImage.cols/2, _bgImage.rows/2);
     Scalar circleColor = Scalar(0,255,255);
     int  circleRadius = (_bgImage.cols - 200)/2;
     circle(_bgImage, circleConter, circleRadius, circleColor, 2, LINE_AA, 0);
 
-    // »æÖÆ¶à±ßĞÎÌî³ä
+    // ç»˜åˆ¶å¤šè¾¹å½¢å¡«å……
     Point root_points[1][6];
     root_points[0][0] = Point(100 + _bgImage.cols/2, _bgImage.rows/2);
     root_points[0][1] = Point(100 + _bgImage.cols/2 + 100, _bgImage.rows/2 - 100);
@@ -190,7 +190,7 @@ void testGraphicsText(Mat& _bgImage)
     polylines(_bgImage, ppt, npt, 1, 1, polylinesColor, 2, LINE_AA, 0);
     fillPoly(_bgImage, ppt, npt, 1, Scalar(255, 255, 255), LINE_AA, 0);
 
-    // »æÖÆËæ»úÖ±Ïß
+    // ç»˜åˆ¶éšæœºç›´çº¿
     RNG rng(123456);
     Mat rngLineMat = Mat::ones(_bgImage.size(), _bgImage.type());
     for (int index = 0; index < 1000; index ++){
@@ -200,73 +200,73 @@ void testGraphicsText(Mat& _bgImage)
         line(rngLineMat, rngLinep1, rngLinep2, rngLinecolor, 2,LINE_AA, 0);
     }
 
-    // »æÖÆÎÄ×Ö
+    // ç»˜åˆ¶æ–‡å­—
     std::string textString("Hello OpenCv");
     Point textPoint = Point( _bgImage.cols/2, _bgImage.rows/2 - 200);
     Scalar putTextColor = Scalar(255,0 ,255);
     putText(_bgImage, textString, textPoint, FONT_HERSHEY_COMPLEX, 5, putTextColor, 2, LINE_AA);
 
-    imshow("»æÖÆÍ¼ĞÎ", _bgImage);
-    imshow("»æÖÆËæ»úÖ±Ïß", rngLineMat);
+    imshow("ç»˜åˆ¶å›¾å½¢", _bgImage);
+    imshow("ç»˜åˆ¶éšæœºç›´çº¿", rngLineMat);
 }
 
 void  testBlur(Mat& _inMat)
 {
-    // ¾ùÖµÄ£ºı
+    // å‡å€¼æ¨¡ç³Š
     Mat blurMat;
     blur(_inMat, blurMat, Size(11, 11), Point(-1, -1) );
-    imshow("¾ùÖµÄ£ºı", blurMat);
+    imshow("å‡å€¼æ¨¡ç³Š", blurMat);
 
-    // ¸ßË¹Ä£ºı
+    // é«˜æ–¯æ¨¡ç³Š
     Mat gaussianBlurMat;
     GaussianBlur(_inMat, gaussianBlurMat, Size(11, 11), 11, 11);
-    imshow("¸ßË¹Ä£ºı", blurMat);
+    imshow("é«˜æ–¯æ¨¡ç³Š", blurMat);
 
-    // ÖĞÖµÄ£ºı  ¶àÓÃÓÚÏû³ı½·ÑÎÔëÉù
+    // ä¸­å€¼æ¨¡ç³Š  å¤šç”¨äºæ¶ˆé™¤æ¤’ç›å™ªå£°
     Mat medianBlurMat;
     medianBlur(_inMat, medianBlurMat, 11);
-    imshow("ÖĞÖµÄ£ºı", medianBlurMat);
+    imshow("ä¸­å€¼æ¨¡ç³Š", medianBlurMat);
 
-    // ¸ßË¹Ë«±ßÂË²¨  ÃÖ²¹¸ßË¹Ëã·¨ ±ßÔµ²îÒì´óÊ±²úÉúµÄÎó²î ¿ÉÒÔ½ÏºÃµÄ±£ÁôÍ¼ÏñÂÖÀª
+    // é«˜æ–¯åŒè¾¹æ»¤æ³¢  å¼¥è¡¥é«˜æ–¯ç®—æ³• è¾¹ç¼˜å·®å¼‚å¤§æ—¶äº§ç”Ÿçš„è¯¯å·® å¯ä»¥è¾ƒå¥½çš„ä¿ç•™å›¾åƒè½®å»“
     Mat bilateralFilterMat;
     bilateralFilter(_inMat, bilateralFilterMat, 11, 100, 3);
-    imshow("¸ßË¹Ë«±ßÂË²¨", medianBlurMat);
+    imshow("é«˜æ–¯åŒè¾¹æ»¤æ³¢", medianBlurMat);
 
 }
 
 void testDilateErode(Mat& _inMat)
 {
     Mat out;
-    //»ñÈ¡×Ô¶¨ÒåºË
+    //è·å–è‡ªå®šä¹‰æ ¸
     Mat element = getStructuringElement(MORPH_RECT, Size(9, 9));
-    //ÅòÕÍ  ¼õĞ¡·ìÏ¶ ÁÁµãÌî³ä°µµã
+    //è†¨èƒ€  å‡å°ç¼éš™ äº®ç‚¹å¡«å……æš—ç‚¹
     dilate(_inMat, out, element);
-    FqImageMat::show("ÅòÕÍ",out);
+    FqImageMat::show("è†¨èƒ€",out);
 
-    // ¸¯Ê´ ¼õĞ¡Ã«´Ì °µµãÌî³äÁÁµã
+    // è…èš€ å‡å°æ¯›åˆº æš—ç‚¹å¡«å……äº®ç‚¹
     erode(_inMat, out, element);
-    FqImageMat::show("¸¯Ê´",out);
+    FqImageMat::show("è…èš€",out);
 
-    //¸ß¼¶ĞÎÌ¬Ñ§´¦Àí£¬µ÷ÓÃÕâ¸öº¯Êı¾Í¿ÉÒÔÁË£¬¾ßÌåÒªÑ¡ÔñÄÄÖÖ²Ù×÷£¬¾ÍĞŞ¸ÄµÚÈı¸ö²ÎÊı¾Í¿ÉÒÔÁË
-    // ¿ªÔËËã ÏÈ¸¯Ê´£¬ÔÚÅòÕÍ È¥³ıÃ«´Ì
+    //é«˜çº§å½¢æ€å­¦å¤„ç†ï¼Œè°ƒç”¨è¿™ä¸ªå‡½æ•°å°±å¯ä»¥äº†ï¼Œå…·ä½“è¦é€‰æ‹©å“ªç§æ“ä½œï¼Œå°±ä¿®æ”¹ç¬¬ä¸‰ä¸ªå‚æ•°å°±å¯ä»¥äº†
+    // å¼€è¿ç®— å…ˆè…èš€ï¼Œåœ¨è†¨èƒ€ å»é™¤æ¯›åˆº
     morphologyEx(_inMat, out, MORPH_OPEN, element);
-    FqImageMat::show("¿ªÔËËã",out);
+    FqImageMat::show("å¼€è¿ç®—",out);
 
-    // ±ÕÔËËã ÏÈÅòÕÍ£¬ÔÚ¸¯Ê´ È¥³ı·ìÏ¶
+    // é—­è¿ç®— å…ˆè†¨èƒ€ï¼Œåœ¨è…èš€ å»é™¤ç¼éš™
     morphologyEx(_inMat, out, MORPH_CLOSE, element);
-    FqImageMat::show("±ÕÔËËã",out);
+    FqImageMat::show("é—­è¿ç®—",out);
 
-    // Ìİ¶ÈÔËËã ÅòÕÍµÄÍ¼Ïñ-¸¯Ê´µÄÍ¼Ïñ ±ßÔµĞÅÏ¢
+    // æ¢¯åº¦è¿ç®— è†¨èƒ€çš„å›¾åƒ-è…èš€çš„å›¾åƒ è¾¹ç¼˜ä¿¡æ¯
     morphologyEx(_inMat, out, MORPH_GRADIENT, element);
-    FqImageMat::show("Ìİ¶ÈÔËËã",out);
+    FqImageMat::show("æ¢¯åº¦è¿ç®—",out);
 
-    // ¸ßÃ± Ô­Ê¼Í¼Ïñ-¿ªÔËËã½á¹û ÒªÏû³ıµÄÃ«´ÌĞÅÏ¢
+    // é«˜å¸½ åŸå§‹å›¾åƒ-å¼€è¿ç®—ç»“æœ è¦æ¶ˆé™¤çš„æ¯›åˆºä¿¡æ¯
     morphologyEx(_inMat, out, MORPH_TOPHAT, element);
-    FqImageMat::show("¸ßÃ±",out);
+    FqImageMat::show("é«˜å¸½",out);
 
-    // ºÚÃ± ±ÕÔËËã½á¹û-Ô­Ê¼Í¼Ïñ ÒªÏû³ıµÄ·ìÏ¶ĞÅÏ¢
+    // é»‘å¸½ é—­è¿ç®—ç»“æœ-åŸå§‹å›¾åƒ è¦æ¶ˆé™¤çš„ç¼éš™ä¿¡æ¯
     morphologyEx(_inMat, out, MORPH_BLACKHAT, element);
-    FqImageMat::show("ºÚÃ±",out);
+    FqImageMat::show("é»‘å¸½",out);
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -298,14 +298,14 @@ MainWindow::MainWindow(QWidget *parent)
     //     //get Pixel with three or one channels
     //        Mat pixelMat = Mat::zeros(imageMat.mat.size(), imageMat.mat.type());
 
-    //        // ×¢ÒâÍ¨µÀÊıÆ¥Åä ·ñÔòµ¼ÖÂ´¦ÀíÍêµÄÍ¼Ïñ¿´ÆğÀ´Ïñ±»Ñ¹Ëõ¹ı
+    //        // æ³¨æ„é€šé“æ•°åŒ¹é… å¦åˆ™å¯¼è‡´å¤„ç†å®Œçš„å›¾åƒçœ‹èµ·æ¥åƒè¢«å‹ç¼©è¿‡
     //        Mat pixelMat2 = Mat::zeros(imageMat.mat.size(), CV_8UC1);
     //        cvtColor(imageMat.mat, pixelMat, CV_RGB2GRAY, 1);
     //        testPixel(imageMat.mat, pixelMat2);  // three channels
     //        //testPixel(pixelMat, pixelMat2);  // one channels
     //        FqImageMat::setLabelPixmap(ui->label2, pixelMat2,  this->width()/2, this->height());
 
-    //     //Í¼Ïñ»ìºÏ  G(x)=(1-a)F(x)+aQ(x)
+    //     //å›¾åƒæ··åˆ  G(x)=(1-a)F(x)+aQ(x)
     //        FqImageMat str1 = FqImageMat("D:/Data/Code_Workspace/imagesTestEx/CMD.jpg", IMREAD_UNCHANGED);
     //        FqImageMat str2 = FqImageMat("D:/Data/Code_Workspace/imagesTestEx/git.jpg", IMREAD_UNCHANGED);
     //        if (str1.empty()){
@@ -320,7 +320,7 @@ MainWindow::MainWindow(QWidget *parent)
     //        FqImageMat::setLabelPixmap(ui->label, str1,  this->width()/2, this->height());
     //        FqImageMat::setLabelPixmap(ui->label2, str2,  this->width()/2, this->height());
     //        double alpha = 0.5;
-    //        // Òª±£Ö¤ĞèÒª»ìºÏµÄÍ¼Ïñ³ß´çºÍÀàĞÍÒ»ÖÂ
+    //        // è¦ä¿è¯éœ€è¦æ··åˆçš„å›¾åƒå°ºå¯¸å’Œç±»å‹ä¸€è‡´
     //        if (str1.mat.size() == str2.mat.size() && str1.mat.type() == str2.mat.type()){
     //            // addWeighted(str1.mat, alpha, str2.mat, 1-alpha, 0.0,outStr);
     //            //add(str1.mat, str2.mat, outStr);
@@ -328,31 +328,31 @@ MainWindow::MainWindow(QWidget *parent)
     //            imshow("test", outStr);
     //        }
 
-    //     //Í¼Ïñ¶Ô±È¶ÈºÍÁÁ¶È²Ù×÷  G(x) = aF(x) + b // aÓ°Ïì¶Ô±È¶È bÓ°ÏìÁÁ¶È
+    //     //å›¾åƒå¯¹æ¯”åº¦å’Œäº®åº¦æ“ä½œ  G(x) = aF(x) + b // aå½±å“å¯¹æ¯”åº¦ bå½±å“äº®åº¦
     //        Mat testMat;
 
-    //        // ÈıÍ¨µÀÍ¼Ïñ²Ù×÷
+    //        // ä¸‰é€šé“å›¾åƒæ“ä½œ
     //        testMat = Mat::zeros(imageMat.mat.size(), imageMat.mat.type());
     //        Mat threeChannelMat = imageMat.mat;
     //        testBrightnessContrast(threeChannelMat, testMat);
 
-    //        // µ¥Í¨µÀÍ¼Ïñ²Ù×÷
+    //        // å•é€šé“å›¾åƒæ“ä½œ
     //        // testMat = Mat::zeros(imageMat.mat.size(), CV_8UC1);
     //        //Mat oneChannelMat;
     //        //cvtColor(imageMat.mat, oneChannelMat, CV_RGB2GRAY);
     //        //testBrightnessContrast(oneChannelMat, testMat);
     //        FqImageMat::setLabelPixmap(ui->label2, testMat,  this->width()/2, this->height());
 
-    //    //·ÖÀëÑÕÉ«Í¨µÀ£¬¶àÍ¨µÀÈÚºÏ
+    //    //åˆ†ç¦»é¢œè‰²é€šé“ï¼Œå¤šé€šé“èåˆ
     //    testChannels(imageMat.mat);
 
-    //    // openCv»æÖÆÍ¼ĞÎÓĞÎÄ×Ö
+    //    // openCvç»˜åˆ¶å›¾å½¢æœ‰æ–‡å­—
     //    testGraphicsText(imageMat.mat);
 
-    //    // openCv  Í¼ÏñÄ£ºı
+    //    // openCv  å›¾åƒæ¨¡ç³Š
     //    testBlur(imageMat.mat);
 
-    // Í¼Ïñ»ù±¾ĞÎÌ¬Ñ§²Ù×÷ ÅòÕÍ ¸¯Ê´ ¿ªÔËËã ±ÕÔËËã Ìİ¶È¼ÆËã ¸ßÃ±ºÍºÚÃ±
+    // å›¾åƒåŸºæœ¬å½¢æ€å­¦æ“ä½œ è†¨èƒ€ è…èš€ å¼€è¿ç®— é—­è¿ç®— æ¢¯åº¦è®¡ç®— é«˜å¸½å’Œé»‘å¸½
     testDilateErode(imageMat.mat);
 
 }
