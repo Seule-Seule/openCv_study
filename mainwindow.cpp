@@ -281,6 +281,35 @@ void testDilateErode(Mat& _inMat)
     FqImageMat::show("黑帽",out);
 }
 
+void testmorphologyExLine()
+{
+    Mat lineMat = imread(cv::String("D:/Data/Code_Workspace/imagesTestEx/lineABCD.png"), IMREAD_COLOR);
+    Mat garyMat, binMat, dst;
+    // 转换为灰度图像——cvtColor
+    cvtColor(~lineMat, garyMat, CV_RGB2GRAY);
+    FqImageMat::show("灰度图像",garyMat);
+
+    // 转换为二值图像——adaptiveThreshold
+    adaptiveThreshold(garyMat, binMat, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, 15, -2);
+    FqImageMat::show("二值图像",binMat);
+
+    // 提取水平线
+    Mat elementVline = getStructuringElement(MORPH_RECT, Size(lineMat.cols / 32, 1));
+    morphologyEx(binMat, dst, MORPH_OPEN, elementVline);
+    FqImageMat::show("提取水平线",dst);
+
+    //提取垂直线
+    Mat elementHline = getStructuringElement(MORPH_RECT, Size(1, lineMat.rows / 32));
+    morphologyEx(binMat, dst, MORPH_OPEN, elementHline);
+    FqImageMat::show("提取垂直线",dst);
+
+    // 开运算操作实际应用
+    Mat kernel = getStructuringElement(MORPH_RECT,Size(3, 3));
+    morphologyEx(binMat,dst,MORPH_OPEN,kernel);
+    FqImageMat::show("开运算操作实际应用",~dst);
+
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -288,7 +317,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    FqImageMat imageMat(cv::String("D:/Data/Code_Workspace/imagesTestEx/test.jpg"), IMREAD_UNCHANGED);
+    FqImageMat imageMat(cv::String("D:/Data/Code_Workspace/imagesTestEx/Qt.png"), IMREAD_UNCHANGED);
 
     if (imageMat.empty()){
         qDebug() << "imageMat is empty!" ;
@@ -364,8 +393,9 @@ MainWindow::MainWindow(QWidget *parent)
     //    // openCv  图像模糊
     //    testBlur(imageMat.mat);
 
-    // 图像基本形态学操作 膨胀 腐蚀 开运算 闭运算 梯度计算 高帽和黑帽
-    testDilateErode(imageMat.mat);
+    //    // 图像基本形态学操作 膨胀 腐蚀 开运算 闭运算 梯度计算 高帽和黑帽
+    //    testDilateErode(imageMat.mat);
+    testmorphologyExLine();
 
 }
 
