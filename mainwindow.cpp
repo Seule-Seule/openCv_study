@@ -310,6 +310,63 @@ void testmorphologyExLine()
 
 }
 
+void  testPyrdownPyrup()
+{
+    Mat srcMat = imread(cv::String("D:/Data/Code_Workspace/imagesTestEx/test2.jpg"), IMREAD_COLOR);
+    Mat downMat, downMat2, upMat, upMat2;
+    imshow("原图",srcMat );
+
+    // 下采样 原图长宽各减小一半 面积减小1/4
+    Mat  matGauss,matGauss2;
+    GaussianBlur(srcMat, matGauss,Size(5,5), 0.3 , 0.4);
+    pyrDown(matGauss, downMat, Size(matGauss.cols/2 , matGauss.rows/2));
+    imshow("下采样",downMat );
+
+    GaussianBlur(downMat, matGauss2,Size(3, 3), 0.5, 0.6);
+    pyrDown(matGauss2, downMat2, Size(matGauss2.cols /2 , matGauss2.rows/2));
+    imshow("下采样2",downMat2 );
+
+    // 上采样
+    pyrUp(downMat2, upMat, Size(downMat2.cols * 2, downMat2.rows * 2));
+    imshow("上采样",upMat );
+
+    pyrUp(upMat, upMat2, Size(upMat.cols * 2, upMat.rows * 2));
+    imshow("上采样2",upMat2 );
+
+    // Laplacian 金字塔
+    Mat laplacianMat, laplacianMat2;
+    Mat resetMat, resetMat2;
+    // 调整图片尺寸
+    matGauss.resize(upMat2.rows);
+    if (matGauss.size() == upMat2.size() ){
+        subtract(matGauss, upMat2, laplacianMat);
+        imshow("Laplacian",laplacianMat );
+
+        // 还原图像
+        add(laplacianMat, upMat2, resetMat);
+        imshow("resetMat",resetMat );
+    }
+    matGauss2.resize(upMat.rows);
+    if (matGauss2.size() == upMat.size() ){
+        subtract(matGauss2, upMat, laplacianMat2);
+        imshow("Laplacian2",laplacianMat2 );
+
+        // 还原图像
+        add(laplacianMat2, upMat, resetMat2);
+        imshow("resetMat2",resetMat2 );
+    }
+
+    // DOG
+    Mat matGauss3, matGauss4;
+    Mat matDOG;
+    GaussianBlur(srcMat, matGauss3,Size(5,5), 0.3 , 0.4);
+    GaussianBlur(srcMat, matGauss4,Size(5,5), 0.7 , 0.8);
+    subtract(matGauss3, matGauss4, matDOG);
+    imshow("DOG",laplacianMat2 );
+
+    // 之后可以从matDOG中提取特征点特别是角点 用于分析图象
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -395,7 +452,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     //    // 图像基本形态学操作 膨胀 腐蚀 开运算 闭运算 梯度计算 高帽和黑帽
     //    testDilateErode(imageMat.mat);
-    testmorphologyExLine();
+    //    testmorphologyExLine();
+
+    // 图像上采样与下采样  插值算法 高斯函数差分(DOG)
+    testPyrdownPyrup();
 
 }
 
