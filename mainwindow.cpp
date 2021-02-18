@@ -6,6 +6,7 @@
 #include <QVector>
 
 #include "FqImageMat.hpp"
+#include "threshold.hpp"
 
 using namespace cv;
 
@@ -455,7 +456,11 @@ MainWindow::MainWindow(QWidget *parent)
     //    testmorphologyExLine();
 
     // 图像上采样与下采样  插值算法 高斯函数差分(DOG)
-    testPyrdownPyrup();
+    // testPyrdownPyrup();
+
+    // 图像阈值
+    Threshold *thresholdTemp = new Threshold;
+    thresholdTemp->ThresholdTest();
 
 }
 

@@ -12,12 +12,14 @@ SOURCES += \
     FqImageMat.cpp \
     FqImageWidget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    threshold.cpp
 
 HEADERS += \
     FqImageMat.hpp \
     FqImageWidget.hpp \
-    mainwindow.hpp
+    mainwindow.hpp \
+    threshold.hpp
 
 FORMS += \
     FqImageWidget.ui \
