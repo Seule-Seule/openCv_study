@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     FqImageMat.cpp \
     FqImageWidget.cpp \
+    convolution.cpp \
     main.cpp \
     mainwindow.cpp \
     threshold.cpp
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     FqImageMat.hpp \
     FqImageWidget.hpp \
+    convolution.hpp \
     mainwindow.hpp \
     threshold.hpp
 

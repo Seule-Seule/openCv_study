@@ -7,6 +7,7 @@
 
 #include "FqImageMat.hpp"
 #include "threshold.hpp"
+#include "convolution.hpp"
 
 using namespace cv;
 
@@ -459,9 +460,14 @@ MainWindow::MainWindow(QWidget *parent)
     // testPyrdownPyrup();
 
     // 图像阈值
-    Threshold *thresholdTemp = new Threshold;
-    thresholdTemp->ThresholdTest();
+    // Threshold *thresholdTemp = new Threshold;
+    // thresholdTemp->ThresholdTest();
+    // delete thresholdTemp;
 
+    // 图像卷积
+    Convolution* convolution = new Convolution ;
+    convolution->ConvolutionTest();
+    delete convolution;
 }
 
 
