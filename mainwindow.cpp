@@ -466,7 +466,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 图像卷积
     Convolution* convolution = new Convolution ;
-    convolution->ConvolutionTest();
+    // convolution->ConvolutionTest();
+    convolution->ConvolutionTestEdge();
     delete convolution;
 }
 

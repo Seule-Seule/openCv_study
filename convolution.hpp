@@ -12,6 +12,8 @@ public:
 public:
     void ConvolutionTest();
 
+    // 卷积边缘处理
+    void ConvolutionTestEdge();
 private:
     Mat src;
 

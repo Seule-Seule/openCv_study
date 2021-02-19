@@ -63,3 +63,41 @@ void Convolution::ConvolutionTest()
     imshow("Sobel", SobelMat);
 }
 
+
+void Convolution::ConvolutionTestEdge()
+{
+    Mat dst;
+    namedWindow("ConvolutionTestEdge", CV_WINDOW_AUTOSIZE);
+    int top =int(0.05 * src.rows);
+    int bottom = int(0.05 * src.rows);
+    int left = int(0.05 * src.cols);
+    int right = int(0.05 * src.cols);
+    RNG rng(12345);   //随机数
+    int borderType = BORDER_DEFAULT;
+
+    int c = 0;
+    while (true) {
+        c = waitKey(500);
+        // ESC
+        if (char(c) == 27) {
+            break;
+        }
+        if (char(c) == 'r') {
+            borderType = BORDER_REPLICATE;
+        }
+        else if (char(c) == 'v') {
+            borderType = BORDER_WRAP;
+        }
+        else if (char(c) == 'c') {
+            borderType = BORDER_CONSTANT;
+        }
+        else if (char(c) == 'd') {
+            borderType = BORDER_DEFAULT;
+        }
+        Scalar color = Scalar(rng.uniform(0, 255),rng.uniform(0, 255), rng.uniform(0, 255));
+        copyMakeBorder(src,dst,top,bottom,left,right,borderType,color);
+        imshow("ConvolutionTestEdge", dst);
+    }
+
+    waitKey(0);
+}
