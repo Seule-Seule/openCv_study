@@ -14,6 +14,12 @@ public:
 
     // 卷积边缘处理
     void ConvolutionTestEdge();
+
+    // Sobel算子
+    void SobelTest();
+
+    // Laplance 算子
+    void LaplanceTest();
 private:
     Mat src;
 

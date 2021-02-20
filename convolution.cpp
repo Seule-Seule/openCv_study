@@ -15,6 +15,10 @@ Convolution::Convolution()
     SobelY = (Mat_<int>(3, 3) << -1, 0, 1, -2, 0, 2, -1, 0, 1);
     Lapulasi = (Mat_<int>(3, 3) << 0, -1, 0, -1, 4, -1, 0, -1, 0);
 
+}
+
+void Convolution::ConvolutionTest()
+{
     namedWindow("src", CV_WINDOW_AUTOSIZE);
     namedWindow("RebortX", CV_WINDOW_AUTOSIZE);
     namedWindow("RebortY", CV_WINDOW_AUTOSIZE);
@@ -23,10 +27,7 @@ Convolution::Convolution()
     namedWindow("Lapulasi", CV_WINDOW_AUTOSIZE);
 
     imshow("src", src);
-}
 
-void Convolution::ConvolutionTest()
-{
     Mat RebortXMat, RebortYMat, SobelXMat, SobelYMat, LapulasiMat;
 
     //RebortX
@@ -68,6 +69,9 @@ void Convolution::ConvolutionTestEdge()
 {
     Mat dst;
     namedWindow("ConvolutionTestEdge", CV_WINDOW_AUTOSIZE);
+    namedWindow("src", CV_WINDOW_AUTOSIZE);
+    imshow("src", src);
+
     int top =int(0.05 * src.rows);
     int bottom = int(0.05 * src.rows);
     int left = int(0.05 * src.cols);
@@ -101,3 +105,51 @@ void Convolution::ConvolutionTestEdge()
 
     waitKey(0);
 }
+
+
+void Convolution::SobelTest()
+{
+    imshow("src", src);
+    Mat dst, gray, gaussian, grayX, grayY;
+
+    GaussianBlur(src, gaussian, Size(3,3), 0);
+    cvtColor(gaussian, gray, CV_BGR2GRAY);
+
+    imshow("gray", gray);
+
+    Sobel(gray, grayX, CV_16S, 1, 0, 3); // （CV_16S改写成-1与输入一样8U类型的话会漏掉很多信息，效果精准度会变差）
+    Sobel(gray, grayY, CV_16S, 0, 1, 3);
+
+//    Scharr(gray, grayX, CV_16S, 1, 0);
+//    Scharr(gray, grayY, CV_16S, 1, 0);
+
+    convertScaleAbs(grayX, grayX);  // 计算图像像素绝对值
+    convertScaleAbs(grayY, grayY);
+
+    imshow("grayX", grayX);
+    imshow("grayY", grayY);
+
+    addWeighted(grayX, 0.5, grayY, 0.5, 0, dst);
+
+    imshow("dst", dst);
+}
+
+void Convolution::LaplanceTest()
+{
+    imshow("src", src);
+    Mat dst, gray, gaussian, laplanceMat;
+
+    GaussianBlur(src, gaussian, Size(3,3), 0);
+    cvtColor(gaussian, gray, CV_BGR2GRAY);
+
+    imshow("gray", gray);
+
+    Laplacian(gray, laplanceMat, CV_16S, 3);
+    convertScaleAbs(laplanceMat, laplanceMat);
+
+    threshold(laplanceMat, laplanceMat, 0, 255, CV_THRESH_OTSU | CV_THRESH_BINARY);
+
+    imshow("laplanceMat", laplanceMat);
+}
+
+
