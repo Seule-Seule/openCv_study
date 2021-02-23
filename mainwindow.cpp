@@ -469,7 +469,9 @@ MainWindow::MainWindow(QWidget *parent)
     // convolution->ConvolutionTest();
     // convolution->ConvolutionTestEdge();
     // convolution->SobelTest();  // Sobel 算子
-    convolution->LaplanceTest();
+    // convolution->LaplanceTest(); // Laplance 算子
+    // convolution->ChnnyTset(); // Canny 边缘检测算法
+    convolution->HoughTransfromTest();
     delete convolution;
 }
 

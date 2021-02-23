@@ -20,6 +20,12 @@ public:
 
     // Laplance 算子
     void LaplanceTest();
+
+    // Chnny 边缘检测
+    void ChnnyTset();
+
+    // 霍夫变换
+    void HoughTransfromTest();
 private:
     Mat src;
 

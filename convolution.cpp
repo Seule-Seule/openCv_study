@@ -4,9 +4,9 @@
 Convolution::Convolution()
 {
 
-    src = imread("D:\\Data\\Code_Workspace\\imagesTestEx\\test2.jpg");
+    src = imread("D:\\Data\\Code_Workspace\\imagesTestEx\\lineABCD.png");
     if (src.empty()){
-        qDebug() << "Image D:\\Data\\Code_Workspace\\imagesTestEx\\test2.jpg  read faile!";
+        qDebug() << "Image D:\\Data\\Code_Workspace\\imagesTestEx\\lineABCD.jpg  read faile!";
         return ;
     }
     RebortX = (Mat_<int>(2,2) << 1, 0, 0, -1);
@@ -150,6 +150,80 @@ void Convolution::LaplanceTest()
     threshold(laplanceMat, laplanceMat, 0, 255, CV_THRESH_OTSU | CV_THRESH_BINARY);
 
     imshow("laplanceMat", laplanceMat);
+}
+
+int tValue = 50;
+int tMax = 255;
+
+Mat inMat, dst;
+void ChnnyDemo(int, void*)
+{
+    Canny(inMat, dst, tValue, tValue*3, 3);
+    imshow("Chnny", dst);
+
+}
+
+void Convolution::ChnnyTset()
+{
+    imshow("src", src);
+    namedWindow("Chnny", CV_WINDOW_AUTOSIZE);
+    Mat dst, gray, gaussian;
+
+    cvtColor(src, gray, CV_BGR2GRAY);
+
+    GaussianBlur(gray, gaussian, Size(3,3), 0);
+    gaussian.copyTo(inMat);
+
+    createTrackbar("Chnny T1 Value:", "Chnny", &tValue, tMax, ChnnyDemo);
+    ChnnyDemo(0,0);
+    waitKey(0);
+}
+
+void Convolution::HoughTransfromTest()
+{
+    imshow("src", src);
+    Mat gray, dstMat;
+    // 边缘检测
+    Canny(src, gray, 100, 200, 5);
+    imshow("grayMat", gray);
+
+    // 直线提取
+    std::vector<Vec4f>  pLines;
+    HoughLinesP(gray, pLines, 1, CV_PI/180.0, 100, 0, 20);
+
+    src.copyTo(dstMat, ~gray);
+    Scalar color = Scalar(0, 0, 255);
+    for (size_t lineIndex = 0; lineIndex < pLines.size(); lineIndex++)
+    {
+        Vec4f  hLine = pLines[lineIndex];
+        line(dstMat, Point(hLine[0], hLine[1]), Point(hLine[2], hLine[3]), color, 1, LINE_4);
+    }
+
+    imshow("dstMat", dstMat);
+
+    // 霍夫圆检测
+    Mat srcC, midC, dstC;
+    srcC = imread("D:\\Data\\Code_Workspace\\imagesTestEx\\circles.jpg");
+    if (srcC.empty()){
+        qDebug() << "Image D:\\Data\\Code_Workspace\\imagesTestEx\\circles.jpg read faile!";
+        return ;
+    }
+    imshow("霍夫圆检测原图",srcC);
+    srcC.copyTo(dstC);
+
+    medianBlur(srcC, midC, 3);// 中值模糊
+    cvtColor(midC, midC, CV_BGR2GRAY);
+    std::vector<Vec3f> pcirclrs;
+    HoughCircles(midC, pcirclrs, CV_HOUGH_GRADIENT, 1, 20, 100, 30, 5, 150);
+
+    for (size_t circleIndex = 0; circleIndex<pcirclrs.size(); circleIndex++){
+        Vec3f Hcircle = pcirclrs[circleIndex];
+        circle(dstC, Point(Hcircle[0], Hcircle[1]), Hcircle[2], Scalar(0,0,255), 2, LINE_AA);
+        circle(dstC, Point(Hcircle[0], Hcircle[1]), 1, Scalar(100,100,100), 2, LINE_AA);
+    }
+    imshow("霍夫圆检测", dstC);
+
+    waitKey(0);
 }
 
 
