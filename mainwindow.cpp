@@ -8,6 +8,7 @@
 #include "FqImageMat.hpp"
 #include "threshold.hpp"
 #include "convolution.hpp"
+#include "pixremap.hpp"
 
 using namespace cv;
 
@@ -465,14 +466,19 @@ MainWindow::MainWindow(QWidget *parent)
     // delete thresholdTemp;
 
     // 图像卷积
-    Convolution* convolution = new Convolution ;
+    //Convolution* convolution = new Convolution ;
     // convolution->ConvolutionTest();
     // convolution->ConvolutionTestEdge();
     // convolution->SobelTest();  // Sobel 算子
     // convolution->LaplanceTest(); // Laplance 算子
     // convolution->ChnnyTset(); // Canny 边缘检测算法
-    convolution->HoughTransfromTest();
-    delete convolution;
+    //convolution->HoughTransfromTest();
+    //delete convolution;
+
+    // 像素重映射
+    PixRemap * pRemap = new PixRemap;
+    pRemap->RemapTest();
+    delete pRemap;
 }
 
 

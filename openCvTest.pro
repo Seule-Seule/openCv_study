@@ -14,6 +14,7 @@ SOURCES += \
     convolution.cpp \
     main.cpp \
     mainwindow.cpp \
+    pixremap.cpp \
     threshold.cpp
 
 HEADERS += \
@@ -21,6 +22,7 @@ HEADERS += \
     FqImageWidget.hpp \
     convolution.hpp \
     mainwindow.hpp \
+    pixremap.hpp \
     threshold.hpp
 
 FORMS += \
