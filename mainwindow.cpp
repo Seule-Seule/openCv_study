@@ -9,6 +9,8 @@
 #include "threshold.hpp"
 #include "convolution.hpp"
 #include "pixremap.hpp"
+#include "histogram.hpp"
+
 
 using namespace cv;
 
@@ -476,9 +478,17 @@ MainWindow::MainWindow(QWidget *parent)
     //delete convolution;
 
     // 像素重映射
-    PixRemap * pRemap = new PixRemap;
-    pRemap->RemapTest();
-    delete pRemap;
+    //PixRemap * pRemap = new PixRemap;
+    //pRemap->RemapTest();
+    //delete pRemap;
+
+    // 直方图
+    Histogram * pHistogram = new  Histogram;
+    // pHistogram->histogramEqualization();  // 均衡化
+    //pHistogram->histogramBuild();  // 直方图计算
+    //pHistogram->histogramImagesSimilarity();  // 直方图相似性检验 BGR
+    pHistogram->histogramImagesSimilarityByHSV();  // 直方图相似性检验 BGR
+    delete  pHistogram;
 }
 
 
@@ -486,4 +496,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+
+
+
 

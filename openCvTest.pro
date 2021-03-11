@@ -12,6 +12,7 @@ SOURCES += \
     FqImageMat.cpp \
     FqImageWidget.cpp \
     convolution.cpp \
+    histogram.cpp \
     main.cpp \
     mainwindow.cpp \
     pixremap.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     FqImageMat.hpp \
     FqImageWidget.hpp \
     convolution.hpp \
+    histogram.hpp \
     mainwindow.hpp \
     pixremap.hpp \
     threshold.hpp
